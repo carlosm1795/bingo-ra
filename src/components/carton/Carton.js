@@ -16,7 +16,7 @@ const Carton = () => {
   //     G: ["", "", "", "", ""],
   //     O: ["", "", "", "", ""],
   //   };
-  const [carton, setCarton] = useState("");
+  const [carton, setCarton] = useState({ B: [] });
   const getCarton = () => {
     axios
       .get(`http://localhost:3000/carton`)
@@ -43,7 +43,6 @@ const Carton = () => {
   };
   useEffect(() => {
     getCarton();
-    console.log(carton);
   }, []);
   return (
     <div>
