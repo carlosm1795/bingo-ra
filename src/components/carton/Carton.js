@@ -19,8 +19,29 @@ const Carton = () => {
     B2: "",
     B3: "",
     B4: "",
+    I0: "",
+    I1: "",
+    I2: "",
+    I3: "",
+    I4: "",
+    N0: "",
+    N1: "",
+    N2: "",
+    N3: "",
+    N4: "",
+    G0: "",
+    G1: "",
+    G2: "",
+    G3: "",
+    G4: "",
+    O0: "",
+    O1: "",
+    O2: "",
+    O3: "",
+    O4: "",
   });
   const changeColor = (value) => {
+    console.log("Me dieron click");
     let newColor = "";
     if (colors[value] === "") {
       newColor = "primary";
@@ -37,22 +58,7 @@ const Carton = () => {
   }, []);
   return (
     <div>
-      <table>
-        <tr>
-          <th>B</th>
-          <th>I</th>
-          <th>N</th>
-          <th>G</th>
-          <th>O</th>
-        </tr>
-        <tr>
-          <td>1</td>
-          <td>2</td>
-          <td>3</td>
-          <td>4</td>
-          <td>5</td>
-        </tr>
-      </table>
+      <h1>Bienvenidos al Bingo y mucha Suerte!!</h1>
       <TableContainer component={Paper}>
         <Table aria-label="simple table">
           <TableHead>
