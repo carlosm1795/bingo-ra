@@ -51,4 +51,10 @@ app.get("/carton", (req, res) => {
   res.send(createCarton());
 });
 
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("build"));
+  app.get("*", (req, res) => {
+    req.sendFile(path.resolved(__dirname, "build", "index.html"));
+  });
+}
 app.listen(apiPort, () => console.log(`Server running on port ${apiPort}`));
