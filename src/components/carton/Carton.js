@@ -9,18 +9,9 @@ import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
 import axios from "axios";
 const Carton = () => {
-  //   let colors = {
-  //     B: ["", "", "", "", ""],
-  //     I: ["", "", "", "", ""],
-  //     N: ["", "", "", "", ""],
-  //     G: ["", "", "", "", ""],
-  //     O: ["", "", "", "", ""],
-  //   };
   const [carton, setCarton] = useState({ B: [] });
   const getCarton = () => {
-    axios
-      .get(`http://localhost:3000/carton`)
-      .then((res) => setCarton(res.data));
+    axios.get(`/carton`).then((res) => setCarton(res.data));
   };
   const [colors, setColors] = useState({
     B0: "",
