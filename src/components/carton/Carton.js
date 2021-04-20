@@ -8,7 +8,9 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
 import axios from "axios";
+import socketIOClient from "socket.io-client";
 const Carton = () => {
+  const [response, setReponse] = useState("");
   const [carton, setCarton] = useState({ B: [] });
   const getCarton = () => {
     axios.get(`/carton`).then((res) => setCarton(res.data));
@@ -53,12 +55,21 @@ const Carton = () => {
       [value]: newColor,
     });
   };
+
   useEffect(() => {
     getCarton();
+  }, []);
+
+  useEffect(() => {
+    const socket = socketIOClient("/");
+    socket.on("FromAPI", (data) => {
+      setReponse(data);
+    });
   }, []);
   return (
     <div>
       <h1>Bienvenidos al Bingo y mucha Suerte!!</h1>
+      {response ? <h1>Number is {response}</h1> : null}
       <TableContainer component={Paper}>
         <Table aria-label="simple table">
           <TableHead>
