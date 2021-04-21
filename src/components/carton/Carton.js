@@ -9,6 +9,7 @@ import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
 import axios from "axios";
 import socketIOClient from "socket.io-client";
+import Typography from "@material-ui/core/Typography";
 const Carton = () => {
   const [response, setReponse] = useState("");
   const [carton, setCarton] = useState({ B: [] });
@@ -42,6 +43,35 @@ const Carton = () => {
     O3: "",
     O4: "",
   });
+  const resetCarton = () => {
+    setColors({
+      B0: "",
+      B1: "",
+      B2: "",
+      B3: "",
+      B4: "",
+      I0: "",
+      I1: "",
+      I2: "",
+      I3: "",
+      I4: "",
+      N0: "",
+      N1: "",
+      N2: "",
+      N3: "",
+      N4: "",
+      G0: "",
+      G1: "",
+      G2: "",
+      G3: "",
+      G4: "",
+      O0: "",
+      O1: "",
+      O2: "",
+      O3: "",
+      O4: "",
+    });
+  };
   const changeColor = (value) => {
     console.log("Me dieron click");
     let newColor = "";
@@ -68,7 +98,9 @@ const Carton = () => {
   }, []);
   return (
     <div>
-      <h1>Bienvenidos al Bingo y mucha Suerte!!</h1>
+      <Typography variant="h3" component="h3" gutterBottom>
+        Bienvenidos al bingo y mucha suerte!!
+      </Typography>
       {response ? <h1>Number is {response}</h1> : null}
       <TableContainer component={Paper}>
         <Table aria-label="simple table">
@@ -134,7 +166,9 @@ const Carton = () => {
           </TableBody>
         </Table>
       </TableContainer>
-      <Button onClick={() => console.log({ carton })}>Mostrar info</Button>
+      <Button variant="contained" color="primary" onClick={resetCarton}>
+        Limpiar Carton
+      </Button>
     </div>
   );
 };

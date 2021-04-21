@@ -12,12 +12,14 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 app.use(bodyParser.json());
-app.use(index);
+//app.use(index);
 
 const server = http.createServer(app);
 const io = socketIo(server);
 let interval;
 let clients = [];
+let numbersList = [];
+
 io.on("connection", (socket) => {
   console.log(`New client connected: ${socket.id}`);
   if (interval) {
@@ -35,10 +37,19 @@ io.on("connection", (socket) => {
 });
 
 const sayRandomNumber = (socketList) => {
-  let number = Math.round(Math.random() * (75 - 1) + 1);
-  for (let conection of clients) {
-    conection.emit("FromAPI", number);
+  let number = "";
+  let toSend = true;
+  while (toSend) {
+    number = Math.round(Math.random() * (75 - 1) + 1);
+    if (!numbersList.includes(number)) {
+      for (let conection of clients) {
+        conection.emit("FromAPI", number);
+      }
+      numbersList = [...numbersList, number];
+      toSend = false;
+    }
   }
+
   return number;
 };
 
@@ -80,6 +91,9 @@ const createCarton = () => {
 const buildPath = path.join(__dirname, "..", "build");
 app.use(express.static(buildPath));
 
+app.get("/", function (req, res) {
+  res.sendFile(buildPath + "index.html");
+});
 app.get("/sendNewNumber", (req, res) => {
   let newNumber = sayRandomNumber(clients);
   res.send({ response: newNumber }).status(200);
