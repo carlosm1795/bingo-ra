@@ -20,6 +20,15 @@ let interval;
 let clients = [];
 let numbersList = [];
 
+const { Pool } = require("pg");
+const pool = new Pool({
+  connectionString:
+    "postgres://kkiwkplfgucgck:e4987186c0e9c1308bea2856f283160ed110287d0a022ec47b4d27728451cf73@ec2-52-1-115-6.compute-1.amazonaws.com:5432/ddjtf8vtcufvmk",
+  ssl: {
+    rejectUnauthorized: false,
+  },
+});
+
 io.on("connection", (socket) => {
   console.log(`New client connected: ${socket.id}`);
   if (interval) {
@@ -101,6 +110,19 @@ app.get("/sendNewNumber", (req, res) => {
 
 app.get("/carton", (req, res) => {
   res.send(createCarton());
+});
+
+app.get("/db", async (req, res) => {
+  try {
+    const client = await pool.connect();
+    const result = await client.query("SELECT * FROM bingo");
+    const results = { results: result ? result.rows : null };
+    res.send({ response: results }).status(200);
+    client.release();
+  } catch (err) {
+    console.error(err);
+    res.send("Error " + err);
+  }
 });
 
 server.listen(apiPort, () => console.log(`Server running on port ${apiPort}`));
