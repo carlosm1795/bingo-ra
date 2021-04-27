@@ -1,8 +1,6 @@
-import logo from "./logo.svg";
 import "./App.css";
 import Carton from "./components/carton/Carton";
 import Admin from "./components/admin/Admin";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "fontsource-roboto";
 import React, { useState } from "react";
 
@@ -18,7 +16,6 @@ import Typography from "@material-ui/core/Typography";
 import CloseIcon from "@material-ui/icons/Close";
 import Slide from "@material-ui/core/Slide";
 import TextField from "@material-ui/core/TextField";
-import MenuItem from "@material-ui/core/MenuItem";
 import InputLabel from "@material-ui/core/InputLabel";
 
 const useStyles = makeStyles((theme) => ({
@@ -43,7 +40,6 @@ function App() {
   const [isNormalUser, setNormalUser] = useState(true);
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
-  const [activities, setActivities] = React.useState([]);
   const [feedback, setFeedback] = useState("");
   const [login, setLogin] = useState({
     username: "",

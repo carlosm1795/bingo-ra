@@ -62,6 +62,12 @@ const sayRandomNumber = (socketList) => {
   return number;
 };
 
+const setWinner = (socketList, ganador) => {
+  for (let conection of clients) {
+    conection.emit("Winners", `${ganador} dice que gano`);
+  }
+};
+
 const getRandomNumbers = (minNumber, topNumber) => {
   let numbers = [];
   let toInsert = true;
@@ -110,6 +116,12 @@ app.get("/sendNewNumber", (req, res) => {
 
 app.get("/carton", (req, res) => {
   res.send(createCarton());
+});
+
+app.get("/winner/:id", (req, res) => {
+  let ganador = req.params.id;
+  setWinner(clients, ganador);
+  res.send({ response: `Parece que gano ${ganador}` }).status(200);
 });
 
 app.get("/db", async (req, res) => {

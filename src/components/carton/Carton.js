@@ -8,9 +8,12 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
 import axios from "axios";
+import { AppBar } from "@material-ui/core";
 import socketIOClient from "socket.io-client";
+import useStyles from "./styles";
 import Typography from "@material-ui/core/Typography";
 const Carton = () => {
+  const classes = useStyles();
   const [response, setReponse] = useState("");
   const [carton, setCarton] = useState({ B: [] });
   const getCarton = () => {
@@ -98,19 +101,31 @@ const Carton = () => {
   }, []);
   return (
     <div>
-      <Typography variant="h3" component="h3" gutterBottom>
-        Bienvenidos al bingo y mucha suerte!!
-      </Typography>
+      <AppBar className={classes.appBar} position="static" color="inherit">
+        <Typography className={classes.heading} variant="h2" align="center">
+          Bienvenidos al bingo y mucha suerte!!
+        </Typography>
+      </AppBar>
       {response ? <h1>Number is {response}</h1> : null}
-      <TableContainer component={Paper}>
+      <TableContainer component={Paper} className={classes.carton}>
         <Table aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell align="center">B</TableCell>
-              <TableCell align="center">I</TableCell>
-              <TableCell align="center">N</TableCell>
-              <TableCell align="center">G</TableCell>
-              <TableCell align="center">O</TableCell>
+              <TableCell className={classes.row1} align="center">
+                B
+              </TableCell>
+              <TableCell className={classes.row2} align="center">
+                I
+              </TableCell>
+              <TableCell className={classes.row1} align="center">
+                N
+              </TableCell>
+              <TableCell className={classes.row2} align="center">
+                G
+              </TableCell>
+              <TableCell className={classes.row1} align="center">
+                O
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
